@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Service, PlatformAccessory, CharacteristicValue } from 'homebridge';
+import { Service, PlatformAccessory } from 'homebridge';
 
 import { SensorReading } from './sensorReading';
-import { ExampleHomebridgePlatform } from './platform';
+import { PurpleAirPlatform } from './platform';
 
 export class Sensor {
 
@@ -17,7 +17,7 @@ export class Sensor {
   private temperature: Service;
 
   constructor(
-    private readonly platform: ExampleHomebridgePlatform,
+    private readonly platform: PurpleAirPlatform,
     private readonly accessory: PlatformAccessory,
   ) {
     this.startedAt = Date.now();
