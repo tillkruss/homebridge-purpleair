@@ -11,6 +11,15 @@
         "required": false,
         "default": "PurpleAir"
       },
+      "conversion" : {
+        "title": "Conversion",
+        "type": "string",
+        "require": false,
+        "default": "EPA",
+        "oneOf": [
+          { "title": "US EPA PM2.5 AQI", "enum": ["US_EPA"] }
+        ]
+      },
       "sensors": {
         "type": "array",
         "items": {

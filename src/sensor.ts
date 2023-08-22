@@ -3,16 +3,6 @@ import { Service, PlatformAccessory, CharacteristicValue } from 'homebridge';
 
 import { SensorReading } from './sensorReading';
 import { ExampleHomebridgePlatform } from './platform';
-import { type } from 'os';
-
-// Characteristic.Model = `hardwarediscovered`
-// Characteristic.SerialNumber = `SensorId`
-// humidity
-// aqiInsteadOfDensity
-// conversion
-// averages
-// interval
-// voc support check!
 
 export class Sensor {
 
@@ -51,9 +41,6 @@ export class Sensor {
     this.airQuality.getCharacteristic(this.platform.Characteristic.PM10Density)
       .onGet(this.getPM10Density.bind(this));
 
-    // this.airQuality.getCharacteristic(this.platform.Characteristic.VOCDensity)
-    //   .onGet(this.getVOCDensity.bind(this));
-
     this.humidity = this.accessory.getService(this.platform.Service.HumiditySensor)
       || this.accessory.addService(this.platform.Service.HumiditySensor);
 
@@ -80,7 +67,7 @@ export class Sensor {
 
   updateReadings() {
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
-      .setCharacteristic(this.platform.Characteristic.Model, '????')
+      .setCharacteristic(this.platform.Characteristic.Model, this.sensorReading.model)
       .setCharacteristic(this.platform.Characteristic.SerialNumber, this.sensorReading.sensorId)
       .setCharacteristic(this.platform.Characteristic.FirmwareRevision, this.sensorReading.version);
 
@@ -88,7 +75,10 @@ export class Sensor {
     this.airQuality.updateCharacteristic(this.platform.Characteristic.AirQuality, this.getAirQuality());
     this.airQuality.updateCharacteristic(this.platform.Characteristic.PM2_5Density, this.getPM2_5Density());
     this.airQuality.updateCharacteristic(this.platform.Characteristic.PM10Density, this.getPM10Density());
-    // TODO: update VOC
+
+    if (this.sensorReading.hasVOC()) {
+      this.airQuality.updateCharacteristic(this.platform.Characteristic.VOCDensity, this.getVOCDensity());
+    }
 
     this.humidity.setCharacteristic(this.platform.Characteristic.Name, this.name);
     this.humidity.updateCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity, this.getCurrentRelativeHumidity());
@@ -103,7 +93,7 @@ export class Sensor {
         timeout: 5000,
       });
 
-      this.sensorReading = new SensorReading(data);
+      this.sensorReading = new SensorReading(data, this.platform.config);
 
       this.updateReadings();
     } catch (error) {
@@ -154,23 +144,25 @@ export class Sensor {
       return this.platform.Characteristic.AirQuality.UNKNOWN;
     }
 
-    if (this.sensorReading.pm2_5 < 50) {
+    const aqi = this.sensorReading.aqi;
+
+    if (aqi < 50) {
       return this.platform.Characteristic.AirQuality.EXCELLENT;
     }
 
-    if (this.sensorReading.pm2_5 < 100) {
+    if (aqi < 100) {
       return this.platform.Characteristic.AirQuality.GOOD;
     }
 
-    if (this.sensorReading.pm2_5 < 150) {
+    if (aqi < 150) {
       return this.platform.Characteristic.AirQuality.FAIR;
     }
 
-    if (this.sensorReading.pm2_5 < 200) {
+    if (aqi < 200) {
       return this.platform.Characteristic.AirQuality.INFERIOR;
     }
 
-    if (this.sensorReading.pm2_5 >= 200) {
+    if (aqi >= 200) {
       return this.platform.Characteristic.AirQuality.POOR;
     }
 

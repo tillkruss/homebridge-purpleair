@@ -3,6 +3,8 @@ import { API, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, 
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings';
 import { Sensor } from './sensor';
 
+// TODO: check for duplicate sensor IPs
+
 export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
   public readonly Characteristic: typeof Characteristic = this.api.hap.Characteristic;
@@ -32,15 +34,7 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
       return;
     }
 
-    // TODO: check for duplicate IPs!!!
-
     for (const sensor of this.config.sensors) {
-      // const sensorReading = await this.readSensor(sensor);
-
-      // if (! sensorReading) {
-      //   return;
-      // }
-
       const uuid = this.api.hap.uuid.generate(sensor.ip);
       const displayName = sensor.name || 'PurpleAir';
 
@@ -50,7 +44,7 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
         this.log.info('Restoring sensor:', existingAccessory.displayName);
 
         existingAccessory.context.sensor = sensor;
-        // existingAccessory.context.reading = sensorReading;
+
         this.api.updatePlatformAccessories([existingAccessory]);
 
         new Sensor(this, existingAccessory);
@@ -60,7 +54,6 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
         const accessory = new this.api.platformAccessory(displayName, uuid);
 
         accessory.context.sensor = sensor;
-        // accessory.context.reading = sensorReading;
 
         new Sensor(this, accessory);
 
@@ -68,18 +61,4 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
       }
     }
   }
-
-  // async readSensor(sensor) {
-  //   try {
-  //     const { data }: any = await axios.get(`http://${sensor.ip}/json`, {
-  //       timeout: 5000,
-  //     });
-
-  //     return new SensorReading(data);
-  //   } catch (error) {
-  //     this.log.error('Unable to read sensor:', error);
-
-  //     return false;
-  //   }
-  // }
 }
