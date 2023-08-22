@@ -20,7 +20,7 @@ export class SensorReading {
   }
 
   get name(): string {
-    return this.data.Geo;
+    return `${this.data.Geo} (${this.data.place})`;
   }
 
   get sensorId(): string {

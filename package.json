@@ -1,5 +1,4 @@
 {
-  "private": true,
   "displayName": "PurpleAir",
   "name": "homebridge-purpleair",
   "version": "1.0.0",

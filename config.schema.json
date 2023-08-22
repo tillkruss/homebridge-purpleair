@@ -5,12 +5,6 @@
   "schema": {
     "type": "object",
     "properties": {
-      "name": {
-        "title": "Name",
-        "type": "string",
-        "required": false,
-        "default": "PurpleAir"
-      },
       "conversion" : {
         "title": "Conversion",
         "type": "string",
@@ -26,17 +20,17 @@
           "title": "Sensor",
           "type": "object",
           "properties": {
-            "name": {
-              "title": "Name",
-              "type": "string",
-              "required": false
-            },
             "ip": {
               "title": "IP Address",
               "type": "string",
               "required": true,
               "format": "ipv4",
               "description": "Local IP address of the sensor."
+            },
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "required": false
             }
           }
         }

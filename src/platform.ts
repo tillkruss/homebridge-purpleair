@@ -3,8 +3,6 @@ import { API, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, 
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings';
 import { Sensor } from './sensor';
 
-// TODO: check for duplicate sensor IPs
-
 export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
   public readonly Characteristic: typeof Characteristic = this.api.hap.Characteristic;
@@ -34,7 +32,15 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
       return;
     }
 
+    const ips: string[] = [];
+
     for (const sensor of this.config.sensors) {
+      if (ips.includes(sensor.ip)) {
+        this.log.warn('Ignoring duplicate sensor:', sensor.ip);
+
+        continue;
+      }
+
       const uuid = this.api.hap.uuid.generate(sensor.ip);
       const displayName = sensor.name || 'PurpleAir';
 
@@ -59,6 +65,8 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
 
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }
+
+      ips.push(sensor.ip);
     }
   }
 }
