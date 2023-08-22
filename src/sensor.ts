@@ -64,11 +64,11 @@ export class Sensor {
 
   updateReadings() {
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
-      .setCharacteristic(this.platform.Characteristic.Model, this.sensorReading.model)
-      .setCharacteristic(this.platform.Characteristic.SerialNumber, this.sensorReading.sensorId)
-      .setCharacteristic(this.platform.Characteristic.FirmwareRevision, this.sensorReading.version);
+      .updateCharacteristic(this.platform.Characteristic.Model, this.sensorReading.model)
+      .updateCharacteristic(this.platform.Characteristic.SerialNumber, this.sensorReading.sensorId)
+      .updateCharacteristic(this.platform.Characteristic.FirmwareRevision, this.sensorReading.version);
 
-    this.airQuality.setCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.airQuality.updateCharacteristic(this.platform.Characteristic.Name, this.name);
     this.airQuality.updateCharacteristic(this.platform.Characteristic.AirQuality, this.getAirQuality());
     this.airQuality.updateCharacteristic(this.platform.Characteristic.PM2_5Density, this.getPM2_5Density());
     this.airQuality.updateCharacteristic(this.platform.Characteristic.PM10Density, this.getPM10Density());
@@ -77,10 +77,10 @@ export class Sensor {
       this.airQuality.updateCharacteristic(this.platform.Characteristic.VOCDensity, this.getVOCDensity());
     }
 
-    this.humidity.setCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.humidity.updateCharacteristic(this.platform.Characteristic.Name, this.name);
     this.humidity.updateCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity, this.getCurrentRelativeHumidity());
 
-    this.temperature.setCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.temperature.updateCharacteristic(this.platform.Characteristic.Name, this.name);
     this.temperature.updateCharacteristic(this.platform.Characteristic.CurrentTemperature, this.getCurrentTemperature());
   }
 
