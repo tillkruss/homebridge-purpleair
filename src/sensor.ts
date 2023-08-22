@@ -93,9 +93,11 @@ export class Sensor {
 
       this.sensorReading = new SensorReading(data, this.platform.config);
 
+      this.platform.log.debug(`Updating sensor [${this.accessory.context.sensor.ip}] readings: ${this.sensorReading}`);
+
       this.updateReadings();
-    } catch (error) {
-      this.platform.log.error('Unable to read sensor:', error);
+    } catch (error: any) { // eslint-disable-line
+      this.platform.log.debug(`Unable to read sensor [${this.accessory.context.sensor.ip}]: ${error.message}`);
     }
   }
 

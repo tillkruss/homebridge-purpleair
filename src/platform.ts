@@ -19,7 +19,7 @@ export class PurpleAirPlatform implements DynamicPlatformPlugin {
   }
 
   configureAccessory(accessory: PlatformAccessory) {
-    this.log.info('Loading accessory from cache:', accessory.displayName);
+    this.log.debug('Loading accessory from cache:', accessory.displayName);
 
     this.accessories.push(accessory);
   }
@@ -47,7 +47,7 @@ export class PurpleAirPlatform implements DynamicPlatformPlugin {
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
 
       if (existingAccessory) {
-        this.log.info('Restoring sensor:', existingAccessory.displayName);
+        this.log.debug('Restoring sensor:', existingAccessory.displayName);
 
         existingAccessory.context.sensor = sensor;
 
@@ -55,7 +55,7 @@ export class PurpleAirPlatform implements DynamicPlatformPlugin {
 
         new Sensor(this, existingAccessory);
       } else {
-        this.log.info('Adding sensor:', displayName);
+        this.log.debug('Adding sensor:', displayName);
 
         const accessory = new this.api.platformAccessory(displayName, uuid);
 

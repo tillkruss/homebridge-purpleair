@@ -15,9 +15,14 @@ export class SensorReading {
     this.readAt = Date.now();
   }
 
-  hasVOC() {
-    return 'voc' in this.data;
-  }
+  public toString = (): string => {
+    return [
+      `AQI=${this.aqi}`,
+      `PM2.5=${this.pm2_5}µg/m³`,
+      `Humidity=${this.humidity}%`,
+      `Temperature=${this.temperature}F`,
+    ].join(', ');
+  };
 
   get name(): string {
     return `${this.data.Geo} (${this.data.place})`;
@@ -83,6 +88,10 @@ export class SensorReading {
       default:
         return this.aqiRaw();
     }
+  }
+
+  hasVOC() {
+    return 'voc' in this.data;
   }
 
   // identical to `this.pmToAQI(this.pm2_5)`
