@@ -1,6 +1,9 @@
 
 import { PlatformConfig } from 'homebridge';
 
+// https://community.purpleair.com/t/the-purpleair-utility/673
+// CF1 indicates measurements suitable for indoor or “controlled” environments.
+// ATM indicates measurements suitable for outdoor or “atmospheric” conditions.
 export class SensorReading {
   public readonly readAt: number;
 
@@ -10,10 +13,6 @@ export class SensorReading {
   ) {
     this.readAt = Date.now();
   }
-
-  // public toString = () : string => {
-  //   return `SensorReading(AQI=${this.aqi.toFixed(0)}, PM25=${this.pm25}u/m3, PM25_CF1=${this.pm25Cf1}u/m3, Humidity=${this.humidity}, VOC=${this.voc})`;
-  // };
 
   hasVOC() {
     return 'voc' in this.data;
@@ -35,8 +34,14 @@ export class SensorReading {
     switch (this.data.hardwarediscovered) {
       case '2.0+BME280+PMSX003-A':
         return 'PA-I';
+      case '2.0+BME280+PMSX003-B+PMSX003-A':
+        return 'PA-II';
       case '2.0+OPENLOG+NO-DISK+DS3231+BME280+PMSX003-B+PMSX003-A':
         return 'PA-II-SD';
+      case '3.0+BME68X+KX122+PMSX003-A':
+        return 'PA-I-LED';
+      case '3.0+OPENLOG+31954 MB+RV3028+BME68X+PMSX003-A+PMSX003-B':
+        return 'PA-II-FLEX';
       default:
         return 'Unknown';
     }

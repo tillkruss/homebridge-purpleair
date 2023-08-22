@@ -176,6 +176,10 @@ export class Sensor {
       return 0;
     }
 
+    if (this.platform.config.aqiInsteadOfDensity) {
+      return this.sensorReading.aqi;
+    }
+
     return this.sensorReading.pm2_5;
   }
 
