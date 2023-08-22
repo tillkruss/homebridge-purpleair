@@ -42,5 +42,6 @@ You may configure this plugin using Homebridge UI, or by editing your `config.js
 ## TODO
 
 - [Get verified](https://github.com/homebridge/verified)
+- Determine whether to use `*atm` for outdoor and `*cf1` for indoor readings
 - Ensure `SERVICE_COMMUNICATION_FAILURE` works as expected
 - Can we make the sensors a tile in HomeKit?
