@@ -36,7 +36,7 @@ export class ExampleHomebridgePlatform implements DynamicPlatformPlugin {
 
     for (const sensor of this.config.sensors) {
       if (ips.includes(sensor.ip)) {
-        this.log.warn('Ignoring duplicate sensor:', sensor.ip);
+        this.log.error('Ignoring duplicate sensor:', sensor.ip);
 
         continue;
       }

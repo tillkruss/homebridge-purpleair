@@ -7,12 +7,19 @@
     "properties": {
       "conversion" : {
         "title": "Conversion",
+        "description": "The data correction used to determine the air quality index (AQI).",
         "type": "string",
-        "require": false,
-        "default": "EPA",
+        "required": true,
+        "default": "US_EPA",
         "oneOf": [
+          { "title": "None", "enum": ["None"] },
           { "title": "US EPA PM2.5 AQI", "enum": ["US_EPA"] }
         ]
+      },
+      "aqiInsteadOfDensity" : {
+        "title": "Report AQI instead of PM2.5",
+        "description": "HomeKit doesn't expose the air quality index (AQI). If enabled, the plugin will report the AQI in the \"PM2.5 Density (µg/m3)\" field.",
+        "type": "boolean"
       },
       "sensors": {
         "type": "array",
@@ -22,15 +29,15 @@
           "properties": {
             "ip": {
               "title": "IP Address",
+              "description": "Local IP address of the sensor.",
               "type": "string",
               "required": true,
-              "format": "ipv4",
-              "description": "Local IP address of the sensor."
+              "format": "ipv4"
             },
             "name": {
               "title": "Name",
-              "type": "string",
-              "required": false
+              "description": "To help distinguish multiple sensors.",
+              "type": "string"
             }
           }
         }

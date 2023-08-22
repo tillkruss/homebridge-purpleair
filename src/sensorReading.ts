@@ -79,6 +79,7 @@ export class SensorReading {
     }
   }
 
+  // identical to `this.pmToAQI(this.pm2_5)`
   aqiRaw(): number {
     if ('pm2.5_aqi_b' in this.data) {
       return (this.data['pm2.5_aqi'] + this.data['pm2.5_aqi_b']) / 2;
@@ -117,8 +118,6 @@ export class SensorReading {
       pm25_corrected = 2.966 + 0.69 * pm25 + 8.84 * 0.0001 * Math.pow(pm25, 2);
     }
 
-    console.log(pm25_corrected);
-
     return this.pmToAQI(pm25_corrected);
   }
 
@@ -151,8 +150,6 @@ export class SensorReading {
     } else {
       aqi = 0;
     }
-
-    console.log(aqi);
 
     return aqi;
   }
