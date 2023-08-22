@@ -43,3 +43,4 @@ You may configure this plugin using Homebridge UI, or by editing your `config.js
 
 - [Get verified](https://github.com/homebridge/verified)
 - Ensure `SERVICE_COMMUNICATION_FAILURE` works as expected
+- Can we make the sensors a tile in HomeKit?
