@@ -215,10 +215,10 @@ export class Sensor {
     this.throwIfNotResponding();
 
     if (! this.hasSensorReading()) {
-      return -270;
+      return 0;
     }
 
-    return (this.sensorReading.temperature - 32) * 5/9;
+    return this.sensorReading.temperature;
   }
 
   getCurrentRelativeHumidity() {

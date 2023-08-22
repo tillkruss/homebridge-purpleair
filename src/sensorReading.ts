@@ -20,7 +20,7 @@ export class SensorReading {
       `AQI=${this.aqi}`,
       `PM2.5=${this.pm2_5}µg/m³`,
       `Humidity=${this.humidity}%`,
-      `Temperature=${this.temperature}F`,
+      `Temperature=${this.temperature}°F`,
     ].join(', ');
   };
 
@@ -78,7 +78,7 @@ export class SensorReading {
   }
 
   get temperature(): number {
-    return this.data.current_temp_f;
+    return (this.data.current_temp_f - 32) * 5/9;
   }
 
   get aqi(): number {
