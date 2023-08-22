@@ -108,13 +108,21 @@ export class Sensor {
   isNotResponding() {
     const secondsSinceStart = (Date.now() - this.startedAt) / 1000;
 
-    if (! this.hasSensorReading() || secondsSinceStart > 30) {
+    if (secondsSinceStart < 35) {
+      return false;
+    }
+
+    if (! this.hasSensorReading()) {
+      this.platform.log.debug(`Sensor [${this.accessory.context.sensor.ip}] has not responded since startup`);
+
       return true;
     }
 
-    const secondsSinceReading = (Date.now() - this.sensorReading.readAt) / 1000;
+    const secondsSinceRead = (Date.now() - this.sensorReading.readAt) / 1000;
 
-    if (secondsSinceReading > 180) {
+    if (secondsSinceRead > 180) {
+      this.platform.log.debug(`Sensor [${this.accessory.context.sensor.ip}] has not responded in 3 minutes`);
+
       return true;
     }
 

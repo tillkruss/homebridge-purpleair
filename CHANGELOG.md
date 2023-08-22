@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Minor code cleanup
 - Improved error reporting and logging
 
+### Fixed
+- Fixed logic bug in `Sensor::isNotResponding()`
+
 ## [1.0.1] - 2023-08-22
 ### Fixed
 - Fixed `PLUGIN_NAME`
