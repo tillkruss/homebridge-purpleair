@@ -89,6 +89,7 @@ export class Sensor {
 
   async readSensor() {
     try {
+      // eslint-disable-next-line
       const { data }: any = await axios.get(`http://${this.accessory.context.sensor.ip}/json`, {
         timeout: 5000,
       });

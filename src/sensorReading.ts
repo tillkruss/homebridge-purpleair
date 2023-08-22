@@ -9,7 +9,7 @@ export class SensorReading {
   public readonly readAt: number;
 
   constructor(
-    private readonly data: any,
+    private readonly data: any, // eslint-disable-line
     private readonly config: PlatformConfig,
   ) {
     this.readAt = Date.now();
