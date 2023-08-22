@@ -1,5 +1,5 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "PurpleAir",
   "pluginType": "platform",
   "singular": true,
   "schema": {
@@ -8,8 +8,29 @@
       "name": {
         "title": "Name",
         "type": "string",
-        "required": true,
-        "default": "Example Dynamic Platform"
+        "required": false,
+        "default": "PurpleAir"
+      },
+      "sensors": {
+        "type": "array",
+        "items": {
+          "title": "Sensor",
+          "type": "object",
+          "properties": {
+            "name": {
+              "title": "Name",
+              "type": "string",
+              "required": false
+            },
+            "ip": {
+              "title": "IP Address",
+              "type": "string",
+              "required": true,
+              "format": "ipv4",
+              "description": "Local IP address of the sensor."
+            }
+          }
+        }
       }
     }
   }
