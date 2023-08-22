@@ -18,7 +18,7 @@
       },
       "aqiInsteadOfDensity" : {
         "title": "Report AQI instead of PM2.5",
-        "description": "HomeKit doesn't expose the air quality index (AQI). If enabled, the plugin will report the AQI in the \"PM2.5 Density (µg/m3)\" field.",
+        "description": "HomeKit doesn't expose the air quality index (AQI). If enabled, the plugin will report the AQI in the \"PM2.5 Density (µg/m³)\" field.",
         "type": "boolean"
       },
       "sensors": {

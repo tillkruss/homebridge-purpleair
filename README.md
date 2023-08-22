@@ -39,7 +39,7 @@ You may configure this plugin using Homebridge UI, or by editing your `config.js
 }
 ```
 
-## TODO
+## TODOs
 
 - [Get verified](https://github.com/homebridge/verified)
 - Determine whether to use `*atm` for outdoor and `*cf1` for indoor readings

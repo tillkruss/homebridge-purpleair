@@ -6,7 +6,7 @@ import { PurpleAirPlatform } from './platform';
 
 export class Sensor {
 
-  static readonly UPDATE_INTERVAL = 60;
+  static readonly UPDATE_INTERVAL = 60 * 1000;
 
   private readonly startedAt: number;
 
@@ -59,10 +59,7 @@ export class Sensor {
 
     this.readSensor();
 
-    setInterval(
-      () => this.readSensor,
-      Sensor.UPDATE_INTERVAL * 1000,
-    );
+    setInterval(() => this.readSensor, Sensor.UPDATE_INTERVAL);
   }
 
   updateReadings() {
@@ -91,7 +88,7 @@ export class Sensor {
     try {
       // eslint-disable-next-line
       const { data }: any = await axios.get(`http://${this.accessory.context.sensor.ip}/json`, {
-        timeout: 5000,
+        timeout: 15 * 1000,
       });
 
       this.sensorReading = new SensorReading(data, this.platform.config);
@@ -103,7 +100,7 @@ export class Sensor {
   }
 
   hasSensorReading() {
-    return (typeof this.sensorReading === 'object');
+    return (typeof this.sensorReading !== 'undefined');
   }
 
   isNotResponding() {

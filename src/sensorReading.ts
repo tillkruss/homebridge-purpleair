@@ -3,8 +3,8 @@ import { PlatformConfig } from 'homebridge';
 
 // https://community.purpleair.com/t/sd-card-file-headers/279
 // https://community.purpleair.com/t/the-purpleair-utility/673
-// CF1 indicates measurements suitable for indoor or “controlled” environments.
-// ATM indicates measurements suitable for outdoor or “atmospheric” conditions.
+// CF1 indicates measurements suitable for indoor or controlled environments.
+// ATM indicates measurements suitable for outdoor or atmospheric conditions.
 export class SensorReading {
   public readonly readAt: number;
 
