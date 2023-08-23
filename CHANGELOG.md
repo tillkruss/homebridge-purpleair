@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - Log configured sensors
 - Round sensor values
+- Retry failed initial sensor readings
 
 ### Fixed
 - Fixed sensor reading interval logic

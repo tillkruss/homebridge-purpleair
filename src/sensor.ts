@@ -48,12 +48,18 @@ export class Sensor {
     this.temperature.getCharacteristic(this.platform.Characteristic.CurrentTemperature).onGet(this.getCurrentTemperature.bind(this));
     this.temperature.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
 
-    this.readSensor();
+    this.readSensor().then((response) => {
+      if (response.constructor.name === 'AxiosError') {
+        setTimeout(() => this.readSensor(), Sensor.REQUEST_TIMEOUT);
+      }
+    });
 
     setInterval(() => this.readSensor(), Sensor.UPDATE_INTERVAL);
   }
 
-  updateReadings() {
+  updateReadings(sensorReading: SensorReading) {
+    this.sensorReading = sensorReading;
+
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
       .updateCharacteristic(this.platform.Characteristic.Model, this.sensorReading.model)
       .updateCharacteristic(this.platform.Characteristic.SerialNumber, this.sensorReading.sensorId)
@@ -81,17 +87,21 @@ export class Sensor {
   async readSensor() {
     try {
       // eslint-disable-next-line
-      const { data }: any = await axios.get(`http://${this.accessory.context.sensor.ip}/json`, {
+      const { data }: any = await axios.get(`http://${this.ip}/json`, {
         timeout: Sensor.REQUEST_TIMEOUT,
       });
 
-      this.sensorReading = new SensorReading(data, this.platform.config);
+      const sensorReading = new SensorReading(data, this.platform.config);
 
-      this.platform.log.debug(`Updating sensor [${this.accessory.context.sensor.ip}] readings: ${this.sensorReading}`);
+      this.platform.log.debug(`Updating sensor [${this.ip}] readings: ${sensorReading}`);
 
-      this.updateReadings();
+      this.updateReadings(sensorReading);
+
+      return sensorReading;
     } catch (error: any) { // eslint-disable-line
-      this.platform.log.warn(`Unable to read sensor [${this.accessory.context.sensor.ip}]: ${error.message}`);
+      this.platform.log.warn(`Unable to read sensor [${this.ip}] data: ${error.message}`);
+
+      return error;
     }
   }
 
@@ -140,6 +150,10 @@ export class Sensor {
     }
 
     return this.sensorReading.name;
+  }
+
+  get ip(): string {
+    return this.accessory.context.sensor.ip;
   }
 
   getStatus() {
