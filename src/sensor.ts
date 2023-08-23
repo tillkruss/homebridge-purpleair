@@ -110,15 +110,15 @@ export class Sensor {
     }
 
     if (! this.hasSensorReading()) {
-      this.platform.log.warn(`Sensor [${this.accessory.context.sensor.ip}] has not responded since startup`);
+      this.platform.log.debug(`Sensor [${this.ip}] is not responding`);
 
       return true;
     }
 
     const minutesSinceRead = (Date.now() - this.sensorReading.readAt) / 1000 / 60;
 
-      this.platform.log.warn(`Sensor [${this.accessory.context.sensor.ip}] has not responded in 3 minutes`);
     if (minutesSinceRead > (updateIntervalInSeconds * 3)) {
+      this.platform.log.debug(`Sensor [${this.ip}] has not responded in ${minutesSinceRead} minutes`);
 
       return true;
     }

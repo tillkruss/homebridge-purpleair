@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Fixed
 - Fixed sensor reading interval logic
+- Avoid "not responding" log spam
 
 ## [1.0.2] - 2023-08-22
 ### Changed
