@@ -120,7 +120,7 @@ export class Sensor {
     }
 
     if (! this.hasSensorReading()) {
-      this.platform.log.debug(`Sensor [${this.ip}] is not responding`);
+      this.platform.log.debug(`Sensor [${this.ip}] has not responded`);
 
       return true;
     }
