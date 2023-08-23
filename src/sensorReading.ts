@@ -54,19 +54,23 @@ export class SensorReading {
   }
 
   get pm2_5(): number {
+    let value = this.data.pm2_5_atm;
+
     if ('pm2_5_atm_b' in this.data) {
-      return (this.data.pm2_5_atm + this.data.pm2_5_atm_b) / 2;
+      value = (this.data.pm2_5_atm + this.data.pm2_5_atm_b) / 2;
     }
 
-    return this.data.pm2_5_atm;
+    return this.round(value);
   }
 
   get pm10(): number {
+    let value = this.data.pm10_0_atm;
+
     if ('pm10_0_atm_b' in this.data) {
-      return (this.data.pm10_0_atm + this.data.pm10_0_atm_b) / 2;
+      value = (this.data.pm10_0_atm + this.data.pm10_0_atm_b) / 2;
     }
 
-    return this.data.pm10_0_atm;
+    return this.round(value);
   }
 
   get voc(): number {
@@ -78,7 +82,9 @@ export class SensorReading {
   }
 
   get temperature(): number {
-    return (this.data.current_temp_f - 32) * 5/9;
+    const celsius = (this.data.current_temp_f - 32) * 5/9;
+
+    return this.round(celsius);
   }
 
   get aqi(): number {
@@ -90,11 +96,16 @@ export class SensorReading {
     }
   }
 
+  round(value: number) {
+    return Math.round((value + Number.EPSILON) * 100) / 100;
+  }
+
   hasVOC() {
     return 'voc' in this.data;
   }
 
-  // identical to `this.pmToAQI(this.pm2_5)`
+  // The `*_aqi` values returned by PurpleAir appear to be
+  // identical to: `this.pmToAQI(this.pm2_5)`
   aqiRaw(): number {
     if ('pm2.5_aqi_b' in this.data) {
       return (this.data['pm2.5_aqi'] + this.data['pm2.5_aqi_b']) / 2;
