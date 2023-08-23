@@ -8,6 +8,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Log configured sensors
 - Round sensor values
 
+### Fixed
+- Fixed sensor reading interval logic
+
 ## [1.0.2] - 2023-08-22
 ### Changed
 - Minor code cleanup

@@ -59,7 +59,7 @@ export class Sensor {
 
     this.readSensor();
 
-    setInterval(() => this.readSensor, Sensor.UPDATE_INTERVAL);
+    setInterval(() => this.readSensor(), Sensor.UPDATE_INTERVAL);
   }
 
   updateReadings() {
