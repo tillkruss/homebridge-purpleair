@@ -32,16 +32,17 @@ You may configure this plugin using Homebridge UI, or by editing your `config.js
             "aqiInsteadOfDensity": true,
             "sensors": [
                 { "ip": "10.0.1.42" },
-                { "ip": "10.0.1.47" }
+                { "ip": "10.0.1.47", "name": "PurpleAir Garage" }
             ]
         }
     ]
 }
 ```
 
-## TODOs
-
-- [Get verified](https://github.com/homebridge/verified)
-- Determine whether to use `*atm` for outdoor and `*cf1` for indoor readings
-- Ensure `SERVICE_COMMUNICATION_FAILURE` works as expected
-- Can we make the sensors a tile in HomeKit?
+| Option                | Type      | Default  | Description |
+| --------------------- | --------- | -------- | ----------- |
+| `conversion`          | `string`  | `US_EPA` | The data correction used to determine the air quality index (AQI). |
+| `aqiInsteadOfDensity` | `boolean` | `false`  | _(Optional)_ HomeKit doesn't expose the air quality index (AQI). If enabled, the plugin will report the AQI in the "PM2.5 Density (µg/m³)" field. |
+| `sensors`             | `array `  | `[]`     | An array containing the PurpleAir sensors. |
+| `sensors[].ip`        | `string`  |          | The IP address of the sensor on the local network. |
+| `sensors[].name`      | `string`  |          | _(Optional)_ The name of the sensor, useful to help distinguish multiple sensors. |
