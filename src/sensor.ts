@@ -97,7 +97,7 @@ export class Sensor {
 
       this.updateReadings();
     } catch (error: any) { // eslint-disable-line
-      this.platform.log.debug(`Unable to read sensor [${this.accessory.context.sensor.ip}]: ${error.message}`);
+      this.platform.log.warn(`Unable to read sensor [${this.accessory.context.sensor.ip}]: ${error.message}`);
     }
   }
 
@@ -113,7 +113,7 @@ export class Sensor {
     }
 
     if (! this.hasSensorReading()) {
-      this.platform.log.debug(`Sensor [${this.accessory.context.sensor.ip}] has not responded since startup`);
+      this.platform.log.warn(`Sensor [${this.accessory.context.sensor.ip}] has not responded since startup`);
 
       return true;
     }
@@ -121,7 +121,7 @@ export class Sensor {
     const secondsSinceRead = (Date.now() - this.sensorReading.readAt) / 1000;
 
     if (secondsSinceRead > 180) {
-      this.platform.log.debug(`Sensor [${this.accessory.context.sensor.ip}] has not responded in 3 minutes`);
+      this.platform.log.warn(`Sensor [${this.accessory.context.sensor.ip}] has not responded in 3 minutes`);
 
       return true;
     }
