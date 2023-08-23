@@ -32,18 +32,21 @@ export class Sensor {
     this.airQuality.getCharacteristic(this.platform.Characteristic.AirQuality).onGet(this.getAirQuality.bind(this));
     this.airQuality.getCharacteristic(this.platform.Characteristic.PM2_5Density).onGet(this.getPM2_5Density.bind(this));
     this.airQuality.getCharacteristic(this.platform.Characteristic.PM10Density).onGet(this.getPM10Density.bind(this));
+    this.airQuality.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
 
     this.humidity = this.accessory.getService(this.platform.Service.HumiditySensor)
       || this.accessory.addService(this.platform.Service.HumiditySensor);
 
     this.humidity.setCharacteristic(this.platform.Characteristic.Name, this.name);
     this.humidity.getCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity).onGet(this.getCurrentRelativeHumidity.bind(this));
+    this.humidity.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
 
     this.temperature = this.accessory.getService(this.platform.Service.TemperatureSensor)
       || this.accessory.addService(this.platform.Service.TemperatureSensor);
 
     this.temperature.setCharacteristic(this.platform.Characteristic.Name, this.name);
     this.temperature.getCharacteristic(this.platform.Characteristic.CurrentTemperature).onGet(this.getCurrentTemperature.bind(this));
+    this.temperature.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
 
     this.readSensor();
 
@@ -57,6 +60,7 @@ export class Sensor {
       .updateCharacteristic(this.platform.Characteristic.FirmwareRevision, this.sensorReading.version);
 
     this.airQuality.updateCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.airQuality.updateCharacteristic(this.platform.Characteristic.StatusActive, true);
     this.airQuality.updateCharacteristic(this.platform.Characteristic.AirQuality, this.getAirQuality());
     this.airQuality.updateCharacteristic(this.platform.Characteristic.PM2_5Density, this.getPM2_5Density());
     this.airQuality.updateCharacteristic(this.platform.Characteristic.PM10Density, this.getPM10Density());
@@ -66,9 +70,11 @@ export class Sensor {
     }
 
     this.humidity.updateCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.humidity.updateCharacteristic(this.platform.Characteristic.StatusActive, true);
     this.humidity.updateCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity, this.getCurrentRelativeHumidity());
 
     this.temperature.updateCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.temperature.updateCharacteristic(this.platform.Characteristic.StatusActive, true);
     this.temperature.updateCharacteristic(this.platform.Characteristic.CurrentTemperature, this.getCurrentTemperature());
   }
 
@@ -134,6 +140,10 @@ export class Sensor {
     }
 
     return this.sensorReading.name;
+  }
+
+  getStatus() {
+    return ! this.isNotResponding();
   }
 
   getAirQuality() {
