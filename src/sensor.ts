@@ -125,7 +125,7 @@ export class Sensor {
       return true;
     }
 
-    const minutesSinceRead = (Date.now() - this.sensorReading.readAt) / 1000 / 60;
+    const minutesSinceRead = (Date.now() - this.sensorReading!.readAt) / 1000 / 60;
 
     if (minutesSinceRead > (updateIntervalInSeconds * 3)) {
       this.platform.log.debug(`Sensor [${this.ip}] has not responded in ${minutesSinceRead} minutes`);
@@ -149,7 +149,7 @@ export class Sensor {
       return 'PurpleAir';
     }
 
-    return this.sensorReading.name;
+    return this.sensorReading!.name;
   }
 
   get ip(): string {
@@ -167,7 +167,7 @@ export class Sensor {
       return this.platform.Characteristic.AirQuality.UNKNOWN;
     }
 
-    const aqi = this.sensorReading.aqi;
+    const aqi = this.sensorReading!.aqi;
 
     if (aqi < 50) {
       return this.platform.Characteristic.AirQuality.EXCELLENT;
@@ -200,10 +200,10 @@ export class Sensor {
     }
 
     if (this.platform.config.aqiInsteadOfDensity) {
-      return this.sensorReading.aqi;
+      return this.sensorReading!.aqi;
     }
 
-    return this.sensorReading.pm2_5;
+    return this.sensorReading!.pm2_5;
   }
 
   getPM10Density() {
@@ -213,7 +213,7 @@ export class Sensor {
       return 0;
     }
 
-    return this.sensorReading.pm10;
+    return this.sensorReading!.pm10;
   }
 
   getVOCDensity() {
@@ -223,7 +223,7 @@ export class Sensor {
       return 0;
     }
 
-    return this.sensorReading.voc;
+    return this.sensorReading!.voc;
   }
 
   getCurrentTemperature() {
@@ -233,7 +233,7 @@ export class Sensor {
       return 0;
     }
 
-    return this.sensorReading.temperature;
+    return this.sensorReading!.temperature;
   }
 
   getCurrentRelativeHumidity() {
@@ -243,6 +243,6 @@ export class Sensor {
       return 0;
     }
 
-    return this.sensorReading.humidity;
+    return this.sensorReading!.humidity;
   }
 }
