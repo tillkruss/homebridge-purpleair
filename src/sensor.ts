@@ -5,16 +5,14 @@ import { SensorReading } from './sensorReading';
 import { PurpleAirPlatform } from './platform';
 
 export class Sensor {
-
-  static readonly UPDATE_INTERVAL = 60 * 1000;
-
-  private readonly startedAt: number;
-
-  private sensorReading;
-
   private airQuality: Service;
   private humidity: Service;
   private temperature: Service;
+  private sensorReading: SensorReading | undefined;
+  private readonly startedAt: number;
+
+  static readonly UPDATE_INTERVAL = 60 * 1000;
+  static readonly REQUEST_TIMEOUT = 15 * 1000;
 
   constructor(
     private readonly platform: PurpleAirPlatform,
@@ -78,7 +76,7 @@ export class Sensor {
     try {
       // eslint-disable-next-line
       const { data }: any = await axios.get(`http://${this.accessory.context.sensor.ip}/json`, {
-        timeout: 15 * 1000,
+        timeout: Sensor.REQUEST_TIMEOUT,
       });
 
       this.sensorReading = new SensorReading(data, this.platform.config);
@@ -96,9 +94,12 @@ export class Sensor {
   }
 
   isNotResponding() {
+    const requestTimeoutInSeconds = Sensor.REQUEST_TIMEOUT / 1000;
+    const updateIntervalInSeconds = Sensor.UPDATE_INTERVAL / 1000;
+
     const secondsSinceStart = (Date.now() - this.startedAt) / 1000;
 
-    if (secondsSinceStart < 35) {
+    if (secondsSinceStart < (requestTimeoutInSeconds * 4)) {
       return false;
     }
 
@@ -108,10 +109,10 @@ export class Sensor {
       return true;
     }
 
-    const secondsSinceRead = (Date.now() - this.sensorReading.readAt) / 1000;
+    const minutesSinceRead = (Date.now() - this.sensorReading.readAt) / 1000 / 60;
 
-    if (secondsSinceRead > 180) {
       this.platform.log.warn(`Sensor [${this.accessory.context.sensor.ip}] has not responded in 3 minutes`);
+    if (minutesSinceRead > (updateIntervalInSeconds * 3)) {
 
       return true;
     }
