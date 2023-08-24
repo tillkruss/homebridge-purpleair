@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [1.0.4] - 2023-08-24
 ### Changed
 - Consider sensor inactive when no reading was taken
 
@@ -41,7 +41,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Initial release
 
 [unreleased]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.4...HEAD
-[1.0.3]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.3...v1.0.4
+[1.0.4]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.0...v1.0.1
