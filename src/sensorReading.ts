@@ -96,12 +96,25 @@ export class SensorReading {
     }
   }
 
-  round(value: number) {
-    return Math.round((value + Number.EPSILON) * 100) / 100;
+  isNaN() {
+    return [
+      'pm2.5_aqi',
+      'pm2_5_atm',
+      'pm10_0_atm',
+      'current_temp_f',
+      'current_humidity',
+    ].some(
+      (name) => isNaN(this.data[name]),
+    );
   }
 
   hasVOC() {
-    return 'voc' in this.data;
+    return ('voc' in this.data)
+      && ! isNaN(this.data.voc);
+  }
+
+  round(value: number) {
+    return Math.round((value + Number.EPSILON) * 100) / 100;
   }
 
   // The `*_aqi` values returned by PurpleAir appear to be
