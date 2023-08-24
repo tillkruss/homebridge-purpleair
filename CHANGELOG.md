@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [1.0.5] - 2023-08-24
 ### Fixed
 - Fixed `Status` logic to avoid HomeKit `0` readings
 
@@ -44,7 +44,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.4...HEAD
+[unreleased]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.5...HEAD
+[1.0.5]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.1...v1.0.2
