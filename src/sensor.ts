@@ -29,24 +29,24 @@ export class Sensor {
       || this.accessory.addService(this.platform.Service.AirQualitySensor);
 
     this.airQuality.setCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.airQuality.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
     this.airQuality.getCharacteristic(this.platform.Characteristic.AirQuality).onGet(this.getAirQuality.bind(this));
     this.airQuality.getCharacteristic(this.platform.Characteristic.PM2_5Density).onGet(this.getPM2_5Density.bind(this));
     this.airQuality.getCharacteristic(this.platform.Characteristic.PM10Density).onGet(this.getPM10Density.bind(this));
-    this.airQuality.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
 
     this.humidity = this.accessory.getService(this.platform.Service.HumiditySensor)
       || this.accessory.addService(this.platform.Service.HumiditySensor);
 
     this.humidity.setCharacteristic(this.platform.Characteristic.Name, this.name);
-    this.humidity.getCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity).onGet(this.getCurrentRelativeHumidity.bind(this));
     this.humidity.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
+    this.humidity.getCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity).onGet(this.getCurrentRelativeHumidity.bind(this));
 
     this.temperature = this.accessory.getService(this.platform.Service.TemperatureSensor)
       || this.accessory.addService(this.platform.Service.TemperatureSensor);
 
     this.temperature.setCharacteristic(this.platform.Characteristic.Name, this.name);
-    this.temperature.getCharacteristic(this.platform.Characteristic.CurrentTemperature).onGet(this.getCurrentTemperature.bind(this));
     this.temperature.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
+    this.temperature.getCharacteristic(this.platform.Characteristic.CurrentTemperature).onGet(this.getCurrentTemperature.bind(this));
 
     this.readSensor().then((response) => {
       if (response.constructor.name === 'AxiosError') {
