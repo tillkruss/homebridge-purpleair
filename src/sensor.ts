@@ -11,8 +11,8 @@ export class Sensor {
   private sensorReading: SensorReading | undefined;
   private readonly startedAt: number;
 
-  static readonly UPDATE_INTERVAL = 60 * 1000;
-  static readonly REQUEST_TIMEOUT = 15 * 1000;
+  static readonly updateInterval = 60;
+  static readonly requestTimeout = 15;
 
   constructor(
     private readonly platform: PurpleAirPlatform,
@@ -50,11 +50,17 @@ export class Sensor {
 
     this.readSensor().then((response) => {
       if (response.constructor.name === 'AxiosError') {
-        setTimeout(() => this.readSensor(), Sensor.REQUEST_TIMEOUT);
+        setTimeout(
+          () => this.readSensor(),
+          Sensor.requestTimeout * 1000,
+        );
       }
     });
 
-    setInterval(() => this.readSensor(), Sensor.UPDATE_INTERVAL);
+    setInterval(
+      () => this.readSensor(),
+      Sensor.updateInterval * 1000,
+    );
   }
 
   updateReadings(sensorReading: SensorReading) {
@@ -88,7 +94,7 @@ export class Sensor {
     try {
       // eslint-disable-next-line
       const { data }: any = await axios.get(`http://${this.ip}/json`, {
-        timeout: Sensor.REQUEST_TIMEOUT,
+        timeout: Sensor.requestTimeout * 1000,
       });
 
       const sensorReading = new SensorReading(data, this.platform.config);
@@ -110,12 +116,9 @@ export class Sensor {
   }
 
   isNotResponding() {
-    const requestTimeoutInSeconds = Sensor.REQUEST_TIMEOUT / 1000;
-    const updateIntervalInSeconds = Sensor.UPDATE_INTERVAL / 1000;
-
     const secondsSinceStart = (Date.now() - this.startedAt) / 1000;
 
-    if (secondsSinceStart < (requestTimeoutInSeconds * 4)) {
+    if (secondsSinceStart < (Sensor.requestTimeout * 4)) {
       return false;
     }
 
@@ -127,7 +130,7 @@ export class Sensor {
 
     const minutesSinceRead = (Date.now() - this.sensorReading!.readAt) / 1000 / 60;
 
-    if (minutesSinceRead > (updateIntervalInSeconds * 3)) {
+    if (minutesSinceRead > (Sensor.updateInterval * 3)) {
       this.platform.log.debug(`Sensor [${this.ip}] has not responded in ${minutesSinceRead} minutes`);
 
       return true;
