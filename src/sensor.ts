@@ -20,33 +20,16 @@ export class Sensor {
   ) {
     this.startedAt = Date.now();
 
-    this.accessory.getService(this.platform.Service.AccessoryInformation)!
-      .setCharacteristic(this.platform.Characteristic.Manufacturer, 'PurpleAir')
-      .setCharacteristic(this.platform.Characteristic.Model, 'Unknown')
-      .setCharacteristic(this.platform.Characteristic.SerialNumber, 'Unknown');
-
     this.airQuality = this.accessory.getService(this.platform.Service.AirQualitySensor)
       || this.accessory.addService(this.platform.Service.AirQualitySensor);
-
-    this.airQuality.setCharacteristic(this.platform.Characteristic.Name, this.name);
-    this.airQuality.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
-    this.airQuality.getCharacteristic(this.platform.Characteristic.AirQuality).onGet(this.getAirQuality.bind(this));
-    this.airQuality.getCharacteristic(this.platform.Characteristic.PM2_5Density).onGet(this.getPM2_5Density.bind(this));
-    this.airQuality.getCharacteristic(this.platform.Characteristic.PM10Density).onGet(this.getPM10Density.bind(this));
 
     this.humidity = this.accessory.getService(this.platform.Service.HumiditySensor)
       || this.accessory.addService(this.platform.Service.HumiditySensor);
 
-    this.humidity.setCharacteristic(this.platform.Characteristic.Name, this.name);
-    this.humidity.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
-    this.humidity.getCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity).onGet(this.getCurrentRelativeHumidity.bind(this));
-
     this.temperature = this.accessory.getService(this.platform.Service.TemperatureSensor)
       || this.accessory.addService(this.platform.Service.TemperatureSensor);
 
-    this.temperature.setCharacteristic(this.platform.Characteristic.Name, this.name);
-    this.temperature.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
-    this.temperature.getCharacteristic(this.platform.Characteristic.CurrentTemperature).onGet(this.getCurrentTemperature.bind(this));
+    this.setUpAccessories();
 
     this.readSensor().then((response) => {
       if (response.constructor.name === 'AxiosError') {
@@ -63,7 +46,30 @@ export class Sensor {
     );
   }
 
-  updateReadings(sensorReading: SensorReading) {
+  setUpAccessories() {
+    this.accessory.getService(this.platform.Service.AccessoryInformation)!
+      .setCharacteristic(this.platform.Characteristic.Manufacturer, 'PurpleAir')
+      .setCharacteristic(this.platform.Characteristic.Model, 'Unknown')
+      .setCharacteristic(this.platform.Characteristic.SerialNumber, 'Unknown');
+
+    this.airQuality.setCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.airQuality.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
+    this.airQuality.getCharacteristic(this.platform.Characteristic.AirQuality).onGet(this.getAirQuality.bind(this));
+    this.airQuality.getCharacteristic(this.platform.Characteristic.PM2_5Density).onGet(this.getPM2_5Density.bind(this));
+    this.airQuality.getCharacteristic(this.platform.Characteristic.PM10Density).onGet(this.getPM10Density.bind(this));
+
+    this.humidity.setCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.humidity.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
+    this.humidity.getCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity).onGet(this.getCurrentRelativeHumidity.bind(this));
+
+    this.temperature.setCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.temperature.getCharacteristic(this.platform.Characteristic.StatusActive).onGet(this.getStatus.bind(this));
+    this.temperature.getCharacteristic(this.platform.Characteristic.CurrentTemperature).onGet(this.getCurrentTemperature.bind(this));
+  }
+
+  updateAccessories(sensorReading: SensorReading) {
+    this.platform.log.debug(`Updating sensor [${this.ip}] readings: ${sensorReading}`);
+
     this.sensorReading = sensorReading;
 
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
@@ -104,9 +110,7 @@ export class Sensor {
         return false;
       }
 
-      this.platform.log.debug(`Updating sensor [${this.ip}] readings: ${sensorReading}`);
-
-      this.updateReadings(sensorReading);
+      this.updateAccessories(sensorReading);
 
       return sensorReading;
     } catch (e: unknown) {
