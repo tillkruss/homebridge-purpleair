@@ -2,11 +2,12 @@
 
 A Homebridge plugin to connect [PurpleAir](https://purpleair.com/) sensors.
 
-- Supports multiple and private sensors
-- Supports VOC, humidity and temperature readings
-- Supports updated `US EPA PM2.5 AQI` conversion
-- Supports reporting AQI instead of PM2.5 Density
-- Supports sensor firmware and model detection
+- Exposes humidity, temperature and VOC readings
+- Supports updated _US EPA PM2.5 AQI_ conversion
+- Increased accuracy with _Dual Laser_ readings
+- Can report AQI instead of PM2.5 Density
+- Detects sensor firmware and model
+- Works with multiple and private sensors
 
 This plugin **only supports local sensors**, if you want to use PurpleAir's paid API use Jacek Suliga's excellent [Homebridge PurpleAir Sensor](https://github.com/jmkk/homebridge-purpleair-sensor) plugin.
 
