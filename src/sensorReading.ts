@@ -15,15 +15,6 @@ export class SensorReading {
     this.readAt = Date.now();
   }
 
-  public toString = (): string => {
-    return [
-      `AQI=${this.aqi}`,
-      `PM2.5=${this.pm2_5}µg/m³`,
-      `Humidity=${this.humidity}%`,
-      `Temperature=${this.temperature}°C`,
-    ].join(', ');
-  };
-
   get name(): string {
     return `${this.data.Geo} (${this.data.place})`;
   }
@@ -96,7 +87,16 @@ export class SensorReading {
     }
   }
 
-  isNaN() {
+  toString(): string {
+    return [
+      `AQI=${this.aqi}`,
+      `PM2.5=${this.pm2_5}µg/m³`,
+      `Humidity=${this.humidity}%`,
+      `Temperature=${this.temperature}°C`,
+    ].join(', ');
+  }
+
+  isNaN(): boolean {
     return [
       'pm2.5_aqi',
       'pm2_5_atm',
@@ -108,12 +108,16 @@ export class SensorReading {
     );
   }
 
-  hasVOC() {
+  hasVOC(): boolean {
     return ('voc' in this.data)
       && ! isNaN(this.data.voc);
   }
 
-  round(value: number) {
+  secondsSinceRead(): number {
+    return Math.floor((Date.now() - this.readAt) / 1000);
+  }
+
+  round(value: number): number {
     return Math.round((value + Number.EPSILON) * 100) / 100;
   }
 

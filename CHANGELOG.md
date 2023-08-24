@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Consider sensor inactive when no reading was taken
 
 ### Fixed
+- Fixed "not responding" logic
 - Protect against `NaN` readings when sensor just booted
 
 ## [1.0.3] - 2023-08-23

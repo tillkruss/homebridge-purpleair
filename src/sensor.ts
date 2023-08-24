@@ -141,10 +141,10 @@ export class Sensor {
       return true;
     }
 
-    const minutesSinceRead = (Date.now() - this.sensorReading!.readAt) / 1000 / 60;
+    const secondsSinceRead = this.sensorReading!.secondsSinceRead();
 
-    if (minutesSinceRead > (Sensor.updateInterval * 3)) {
-      this.platform.log.debug(`Sensor [${this.ip}] has not responded in ${minutesSinceRead} minutes`);
+    if (secondsSinceRead > (Sensor.updateInterval * 3)) {
+      this.platform.log.debug(`Sensor [${this.ip}] has not responded in ${Math.round(secondsSinceRead / 60)} minutes`);
 
       return true;
     }
