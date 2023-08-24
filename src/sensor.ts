@@ -99,7 +99,7 @@ export class Sensor {
       const sensorReading = new SensorReading(data, this.platform.config);
 
       if (sensorReading.isNaN()) {
-        this.platform.log.info(`Sensor reading was NaN, trying again in ${Sensor.updateInterval} seconds`);
+        this.platform.log.info('Sensor reading was NaN, waiting for next reading...');
 
         return false;
       }
