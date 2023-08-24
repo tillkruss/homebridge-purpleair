@@ -166,7 +166,7 @@ export class Sensor {
   }
 
   getStatus() {
-    return ! this.isNotResponding();
+    return ! this.hasSensorReading() || ! this.isNotResponding();
   }
 
   getAirQuality() {
