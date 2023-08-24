@@ -32,7 +32,7 @@ export class SensorReading {
     return this.data.SensorId;
   }
 
-  get version(): string {
+  get firmwareVersion(): string {
     return this.data.version;
   }
 

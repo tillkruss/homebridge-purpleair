@@ -69,7 +69,7 @@ export class Sensor {
     this.accessory.getService(this.platform.Service.AccessoryInformation)!
       .updateCharacteristic(this.platform.Characteristic.Model, this.sensorReading.model)
       .updateCharacteristic(this.platform.Characteristic.SerialNumber, this.sensorReading.sensorId)
-      .updateCharacteristic(this.platform.Characteristic.FirmwareRevision, this.sensorReading.version);
+      .updateCharacteristic(this.platform.Characteristic.FirmwareRevision, this.sensorReading.firmwareVersion);
 
     this.airQuality.updateCharacteristic(this.platform.Characteristic.Name, this.name);
     this.airQuality.updateCharacteristic(this.platform.Characteristic.StatusActive, true);
