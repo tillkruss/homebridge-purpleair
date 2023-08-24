@@ -20,7 +20,7 @@ export class SensorReading {
       `AQI=${this.aqi}`,
       `PM2.5=${this.pm2_5}µg/m³`,
       `Humidity=${this.humidity}%`,
-      `Temperature=${this.temperature}°F`,
+      `Temperature=${this.temperature}°C`,
     ].join(', ');
   };
 
