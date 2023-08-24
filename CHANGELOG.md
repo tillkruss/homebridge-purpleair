@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Fixed
+- Fixed `Status` logic to avoid HomeKit `0` readings
+
 ## [1.0.4] - 2023-08-24
 ### Changed
 - Consider sensor inactive when no reading was taken

@@ -128,6 +128,10 @@ export class Sensor {
     return (typeof this.sensorReading !== 'undefined');
   }
 
+  isResponding() {
+    return ! this.isNotResponding();
+  }
+
   isNotResponding() {
     const secondsSinceStart = (Date.now() - this.startedAt) / 1000;
 
@@ -173,7 +177,7 @@ export class Sensor {
   }
 
   getStatus() {
-    return ! this.hasSensorReading() || ! this.isNotResponding();
+    return this.hasSensorReading() && this.isResponding();
   }
 
   getAirQuality() {
