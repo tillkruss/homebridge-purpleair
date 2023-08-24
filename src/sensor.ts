@@ -92,8 +92,7 @@ export class Sensor {
 
   async readSensor() {
     try {
-      // eslint-disable-next-line
-      const { data }: any = await axios.get(`http://${this.ip}/json`, {
+      const { data } = await axios.get(`http://${this.ip}/json`, {
         timeout: Sensor.requestTimeout * 1000,
       });
 
@@ -110,7 +109,11 @@ export class Sensor {
       this.updateReadings(sensorReading);
 
       return sensorReading;
-    } catch (error: any) { // eslint-disable-line
+    } catch (e: unknown) {
+      const error = e instanceof Error
+        ? e
+        : new Error(String(e));
+
       this.platform.log.warn(`Unable to read sensor [${this.ip}] data: ${error.message}`);
 
       return error;
