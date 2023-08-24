@@ -6,8 +6,9 @@ A Homebridge plugin to connect [PurpleAir](https://purpleair.com/) sensors.
 - Supports VOC, humidity and temperature readings
 - Supports updated `US EPA PM2.5 AQI` conversion
 - Supports reporting AQI instead of PM2.5 Density
+- Supports sensor firmware and model detection
 
-This plugin only supports local sensors, if you want to use PurpleAir's paid API, use Jacek Suliga's excellent [`homebridge-purpleair-sensor`](https://github.com/jmkk/homebridge-purpleair-sensor).
+This plugin **only supports local sensors**, if you want to use PurpleAir's paid API use Jacek Suliga's excellent [Homebridge PurpleAir Sensor](https://github.com/jmkk/homebridge-purpleair-sensor) plugin.
 
 ## Installation
 
@@ -45,4 +46,4 @@ You may configure this plugin using Homebridge UI, or by editing your `config.js
 | `aqiInsteadOfDensity` | `boolean` | `false`  | _(Optional)_ HomeKit doesn't expose the air quality index (AQI). If enabled, the plugin will report the AQI in the "PM2.5 Density (µg/m³)" field. |
 | `sensors`             | `array `  | `[]`     | An array containing the PurpleAir sensors. |
 | `sensors[].ip`        | `string`  |          | The IP address of the sensor on the local network. |
-| `sensors[].name`      | `string`  |          | _(Optional)_ The name of the sensor, useful to help distinguish multiple sensors. |
+| `sensors[].name`      | `string`  |          | _(Optional)_ The name of the sensor. Useful to distinguish multiple sensors. |
