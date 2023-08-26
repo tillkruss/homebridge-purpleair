@@ -77,7 +77,7 @@ export class Sensor {
       .updateCharacteristic(this.platform.Characteristic.SerialNumber, this.sensorReading.sensorId)
       .updateCharacteristic(this.platform.Characteristic.FirmwareRevision, this.sensorReading.firmwareVersion);
 
-    this.airQuality.updateCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.airQuality.updateCharacteristic(this.platform.Characteristic.Name, this.name); // Characteristic.ConfiguredName
     this.airQuality.updateCharacteristic(this.platform.Characteristic.StatusActive, true);
     this.airQuality.updateCharacteristic(this.platform.Characteristic.AirQuality, this.getAirQuality());
     this.airQuality.updateCharacteristic(this.platform.Characteristic.PM2_5Density, this.getPM2_5Density());
@@ -87,11 +87,11 @@ export class Sensor {
       this.airQuality.updateCharacteristic(this.platform.Characteristic.VOCDensity, this.getVOCDensity());
     }
 
-    this.humidity.updateCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.humidity.updateCharacteristic(this.platform.Characteristic.Name, this.name); // Characteristic.ConfiguredName
     this.humidity.updateCharacteristic(this.platform.Characteristic.StatusActive, true);
     this.humidity.updateCharacteristic(this.platform.Characteristic.CurrentRelativeHumidity, this.getCurrentRelativeHumidity());
 
-    this.temperature.updateCharacteristic(this.platform.Characteristic.Name, this.name);
+    this.temperature.updateCharacteristic(this.platform.Characteristic.Name, this.name); // Characteristic.ConfiguredName
     this.temperature.updateCharacteristic(this.platform.Characteristic.StatusActive, true);
     this.temperature.updateCharacteristic(this.platform.Characteristic.CurrentTemperature, this.getCurrentTemperature());
   }
@@ -165,6 +165,10 @@ export class Sensor {
   }
 
   get name(): string {
+    if (this.accessory.context.sensor.name?.trim()?.length) {
+      return this.accessory.context.sensor.name;
+    }
+
     if (! this.hasSensorReading()) {
       return 'PurpleAir';
     }

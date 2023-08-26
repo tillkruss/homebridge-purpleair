@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Changed
+- Set accessory name from `sensors[].name`
+
 ## [1.0.5] - 2023-08-24
 ### Fixed
 - Fixed `Status` logic to avoid HomeKit `0` readings
