@@ -5,7 +5,7 @@
   "schema": {
     "type": "object",
     "properties": {
-      "conversion" : {
+      "conversion": {
         "title": "Conversion",
         "description": "The data correction used to determine the air quality index (AQI).",
         "type": "string",
@@ -30,6 +30,7 @@
             "ip": {
               "title": "IP Address",
               "description": "Local IP address of the sensor.",
+              "placeholder": "192.168.0.xxx",
               "type": "string",
               "required": true,
               "format": "ipv4"
@@ -37,6 +38,7 @@
             "name": {
               "title": "Name",
               "description": "To help distinguish multiple sensors.",
+              "placeholder": "PurpleAir Garage",
               "type": "string"
             }
           }

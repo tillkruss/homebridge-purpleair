@@ -33,8 +33,8 @@ You may configure this plugin using Homebridge UI, or by editing your `config.js
             "conversion": "US_EPA",
             "aqiInsteadOfDensity": true,
             "sensors": [
-                { "ip": "10.0.1.42" },
-                { "ip": "10.0.1.47", "name": "PurpleAir Garage" }
+                { "ip": "192.168.0.42" },
+                { "ip": "192.168.0.47", "name": "PurpleAir Garage" }
             ]
         }
     ]
