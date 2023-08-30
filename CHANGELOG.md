@@ -5,7 +5,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [unreleased]
 ### Changed
-- Set accessory name from `sensors[].name`
+- Set accessory name from `sensors[].name` config
+
+### Fixed
+- Fixed detecting models with SD cards
 
 ## [1.0.5] - 2023-08-24
 ### Fixed

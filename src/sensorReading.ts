@@ -28,16 +28,20 @@ export class SensorReading {
   }
 
   get model(): string {
-    switch (this.data.hardwarediscovered) {
+    const hardware = this.data.hardwarediscovered
+      .replace('+NO-DISK', '')
+      .replace(/\+OPENLOG\+\d+ MB/, '+OPENLOG');
+
+    switch (hardware) {
       case '2.0+BME280+PMSX003-A':
         return 'PA-I';
       case '2.0+BME280+PMSX003-B+PMSX003-A':
         return 'PA-II';
-      case '2.0+OPENLOG+NO-DISK+DS3231+BME280+PMSX003-B+PMSX003-A':
+      case '2.0+OPENLOG+DS3231+BME280+PMSX003-B+PMSX003-A':
         return 'PA-II-SD';
       case '3.0+BME68X+KX122+PMSX003-A':
         return 'PA-I-LED';
-      case '3.0+OPENLOG+31954 MB+RV3028+BME68X+PMSX003-A+PMSX003-B':
+      case '3.0+OPENLOG+RV3028+BME68X+PMSX003-A+PMSX003-B':
         return 'PA-II-FLEX';
       default:
         return 'Unknown';
