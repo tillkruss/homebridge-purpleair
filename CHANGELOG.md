@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [unreleased]
 ### Changed
+- Changed package name to `homebridge-purpleair`
 - Set accessory name from `sensors[].name` config
 
 ### Fixed

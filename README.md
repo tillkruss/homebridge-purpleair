@@ -13,10 +13,10 @@ This plugin **only supports local sensors**, if you want to use PurpleAir's paid
 
 ## Installation
 
-Search for `@tillkruss/homebridge-purpleair` in Homebridge UI, or install it via CLI:
+Search for `homebridge-purpleair` in Homebridge UI, or install it via CLI:
 
 ```shell
-$ sudo npm install -g --unsafe-perm @tillkruss/homebridge-purpleair
+$ sudo npm install -g --unsafe-perm homebridge-purpleair
 ```
 
 ## Configuration

@@ -6,4 +6,4 @@ export const PLATFORM_NAME = 'PurpleAir';
 /**
  * This must match the name of your plugin as defined the package.json
  */
-export const PLUGIN_NAME = '@tillkruss/homebridge-purpleair';
+export const PLUGIN_NAME = 'homebridge-purpleair';
