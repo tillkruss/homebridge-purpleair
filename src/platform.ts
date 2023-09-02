@@ -26,7 +26,7 @@ export class PurpleAirPlatform implements DynamicPlatformPlugin {
 
   setUpSensors() {
 
-    if (! this.config.sensors.length) {
+    if (! this.config.sensors?.length) {
       this.log.warn('No sensors configured');
 
       return;

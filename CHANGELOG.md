@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Fixed
+- Avoid crash if no `sensors` are defined
+
 ## [1.0.6] - 2023-08-31
 ### Changed
 - Changed package name to `homebridge-purpleair`
