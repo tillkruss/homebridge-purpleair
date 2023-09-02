@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [1.0.7] - 2023-09-02
 ### Fixed
 - Avoid crash if no `sensors` are defined
 
@@ -56,7 +56,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Initial release
 
-[unreleased]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.6...HEAD
+[unreleased]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.7...HEAD
+[1.0.7]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.6...v1.0.7
 [1.0.6]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.5...v1.0.6
 [1.0.5]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.4...v1.0.5
 [1.0.4]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.3...v1.0.4
