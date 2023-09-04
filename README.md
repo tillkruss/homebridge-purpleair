@@ -1,6 +1,7 @@
 # Homebridge PurpleAir Plugin
-[![npm](https://img.shields.io/npm/v/homebridge-purpleair)](https://www.npmjs.com/package/homebridge-purpleair)
+[![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
 [![github](https://img.shields.io/github/actions/workflow/status/tillkruss/homebridge-purpleair/build.yml)](https://github.com/tillkruss/homebridge-purpleair/actions)
+[![npm](https://img.shields.io/npm/v/homebridge-purpleair)](https://www.npmjs.com/package/homebridge-purpleair)
 
 A Homebridge plugin to connect [PurpleAir](https://purpleair.com/) sensors.
 
