@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Changed
+- Adjusted temperature by -8°F and humidity by +4% to better reflect ambient temperature
+
 ## [1.0.7] - 2023-09-02
 ### Fixed
 - Avoid crash if no `sensors` are defined

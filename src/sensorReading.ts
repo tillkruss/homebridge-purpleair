@@ -72,12 +72,26 @@ export class SensorReading {
     return this.data.voc;
   }
 
+  /**
+   * Humidity adjusted by +4%.
+   *
+   * @see https://community.purpleair.com/t/purpleair-sensors-functional-overview/150
+   */
   get humidity(): number {
-    return this.data.current_humidity;
+    const correction = 4;
+
+    return this.data.current_humidity + correction;
   }
 
+  /**
+   * Temperature adjusted by -8°F.
+   *
+   * @see https://community.purpleair.com/t/purpleair-sensors-functional-overview/150
+   */
   get temperature(): number {
-    const celsius = (this.data.current_temp_f - 32) * 5/9;
+    const correction = -8;
+    const fahrenheit = this.data.current_temp_f + correction;
+    const celsius = (fahrenheit - 32) * 5/9;
 
     return this.round(celsius);
   }
