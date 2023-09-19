@@ -1,10 +1,12 @@
 
 import { PlatformConfig } from 'homebridge';
 
-// https://community.purpleair.com/t/sd-card-file-headers/279
-// https://community.purpleair.com/t/the-purpleair-utility/673
-// CF1 indicates measurements suitable for indoor or controlled environments.
-// ATM indicates measurements suitable for outdoor or atmospheric conditions.
+/**
+ * https://community.purpleair.com/t/sd-card-file-headers/279
+ * https://community.purpleair.com/t/the-purpleair-utility/673
+ * CF1 indicates measurements suitable for indoor or controlled environments.
+ * ATM indicates measurements suitable for outdoor or atmospheric conditions.
+ */
 export class SensorReading {
   public readonly readAt: number;
 
@@ -139,8 +141,9 @@ export class SensorReading {
     return Math.round((value + Number.EPSILON) * 100) / 100;
   }
 
-  // The `*_aqi` values returned by PurpleAir appear to be
-  // identical to: `this.pmToAQI(this.pm2_5)`
+  /**
+   * The `*_aqi` values returned by PurpleAir appear to be identical to: `this.pmToAQI(this.pm2_5)`
+   */
   aqiRaw(): number {
     if ('pm2.5_aqi_b' in this.data) {
       return (this.data['pm2.5_aqi'] + this.data['pm2.5_aqi_b']) / 2;
@@ -154,7 +157,7 @@ export class SensorReading {
    * This updated algorithm is the one currently used by PurpleAir. The 5 equations are found on Slide 26 at:
    * https://cfpub.epa.gov/si/si_public_record_report.cfm?dirEntryId=353088&Lab=CEMM
    *
-   * Taken from: https://github.com/tidbyt/community/pull/1727
+   * @see https://github.com/tidbyt/community/pull/1727
    */
   aqiEPA(): number {
     const pm25 = this.pm2_5;
@@ -182,7 +185,9 @@ export class SensorReading {
     return this.pmToAQI(pm25_corrected);
   }
 
-  // https://forum.airnowtech.org/t/the-aqi-equation/169
+  /**
+   * @see https://forum.airnowtech.org/t/the-aqi-equation/169
+   */
   pmToAQI(pm: number): number {
     let aqi: number;
 
