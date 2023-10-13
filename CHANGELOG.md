@@ -3,10 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [1.0.8] - 2023-10-13
 ### Changed
-- Use CF1 readings for indoor sensors
-- Adjusted temperature by -8°F and humidity by +4% to better reflect ambient temperature
+- Use `CF=1` readings for indoor sensors
+- Apply US EPA conversion to indoor sensors
+- Adjusted temperature by `-8°F` and humidity by `+4%` to better reflect ambient temperature
 
 ## [1.0.7] - 2023-09-02
 ### Fixed

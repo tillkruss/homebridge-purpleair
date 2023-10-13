@@ -50,18 +50,24 @@ export class SensorReading {
   }
 
   get pm2_5(): number {
+    return this.isIndoor() ? this.pm2_5_cf1 : this.pm2_5_atm;
+  }
+
+  get pm2_5_atm(): number {
     let value = this.data.pm2_5_atm;
 
     if ('pm2_5_atm_b' in this.data) {
       value = (this.data.pm2_5_atm + this.data.pm2_5_atm_b) / 2;
     }
 
-    if (this.isIndoor()) {
-      value = this.data.pm2_5_cf_1;
+    return this.round(value);
+  }
 
-      if ('pm2_5_cf_1_b' in this.data) {
-        value = (this.data.pm2_5_cf_1 + this.data.pm2_5_cf_1_b) / 2;
-      }
+  get pm2_5_cf1(): number {
+    let value = this.data.pm2_5_cf_1;
+
+    if ('pm2_5_cf_1_b' in this.data) {
+      value = (this.data.pm2_5_cf_1 + this.data.pm2_5_cf_1_b) / 2;
     }
 
     return this.round(value);
@@ -116,7 +122,7 @@ export class SensorReading {
   get aqi(): number {
     switch (this.config.conversion) {
       case 'US_EPA':
-        return this.aqiEPA();
+        return this.isIndoor() ? this.epaCF1() : this.epaATM();
       default:
         return this.aqiRaw();
     }
@@ -172,6 +178,21 @@ export class SensorReading {
     return this.data['pm2.5_aqi'];
   }
 
+  epaCF1(): number {
+    const pm25 = this.pm2_5_cf1;
+    const humidity = this.humidity;
+
+    let pm25_corrected = 0;
+
+    if (pm25 > 343) {
+      pm25_corrected = 0.46 * pm25 + 3.93 * Math.pow(10, -4) * Math.pow(pm25, 2) + 2.97;
+    } else {
+      pm25_corrected = 0.524 * pm25 - 0.0862 * humidity + 5.75;
+    }
+
+    return this.pmToAQI(pm25_corrected);
+  }
+
   /**
    * An updated 5 step algorithm for correcting sensor data was developed by the EPA based on new wildfire data.
    * This updated algorithm is the one currently used by PurpleAir. The 5 equations are found on Slide 26 at:
@@ -179,27 +200,27 @@ export class SensorReading {
    *
    * @see https://github.com/tidbyt/community/pull/1727
    */
-  aqiEPA(): number {
-    const pm25 = this.pm2_5;
+  epaATM(): number {
+    const pm25 = this.pm2_5_atm;
     const humidity = this.humidity;
 
     let pm25_corrected = 0;
 
-    if (0 <= pm25 && pm25 < 30) {
-      pm25_corrected = 0.524 * pm25 - 0.0862 * humidity + 5.75;
-    } else if (30 <= pm25 && pm25 < 50) {
-      pm25_corrected = (0.786 * (pm25 / 20 - 3 / 2) + 0.524 * (1 - (pm25 / 20 - 3 / 2))) * pm25 - 0.0862 * humidity + 5.75;
-    } else if (50 <= pm25 && pm25 < 210) {
-      pm25_corrected = 0.786 * pm25 - 0.0862 * humidity + 5.75;
-    } else if (210 <= pm25 && pm25 < 260) {
-      const term1 = 0.69 * (pm25 / 50 - 21 / 5) + 0.786 * (1 - (pm25 / 50 - 21 / 5));
-      const term2 = -0.0862 * humidity * (1 - (pm25 / 50 - 21 / 5));
-      const term3 = 2.966 * (pm25 / 50 - 21 / 5);
-      const term4 = 5.75 * (1 - (pm25 / 50 - 21 / 5));
-      const term5 = 8.84 * 0.0001 * Math.pow(pm25, 2) * (pm25 / 50 - 21 / 5);
+    if (pm25 >= 260) {
+      pm25_corrected = 2.966 + 0.69 * pm25 + 8.84 * Math.pow(10, -4) * Math.pow(pm25, 2);
+    } else if (pm25 >= 210) {
+      const term1 = 0.69 * (pm25 / 50 - 4.2) + 0.786 * (1 - (pm25 / 50 - 4.2));
+      const term2 = -0.0862 * humidity * (1 - (pm25 / 50 - 4.2));
+      const term3 = 2.966 * (pm25 / 50 - 4.2);
+      const term4 = 5.75 * (1 - (pm25 / 50 - 4.2));
+      const term5 = 8.84 * Math.pow(10, -4) * Math.pow(pm25, 2) * (pm25 / 50 - 4.2);
       pm25_corrected = term1 * pm25 + term2 + term3 + term4 + term5;
-    } else if (260 <= pm25) {
-      pm25_corrected = 2.966 + 0.69 * pm25 + 8.84 * 0.0001 * Math.pow(pm25, 2);
+    } else if (pm25 >= 50) {
+      pm25_corrected = 0.786 * pm25 - 0.0862 * humidity + 5.75;
+    } else if (pm25 >= 30) {
+      pm25_corrected = (0.786 * (pm25 / 20 - 3 / 2) + 0.524 * (1 - (pm25 / 20 - 3 / 2))) * pm25 - 0.0862 * humidity + 5.75;
+    } else {
+      pm25_corrected = 0.524 * pm25 - 0.0862 * humidity + 5.75;
     }
 
     return this.pmToAQI(pm25_corrected);
