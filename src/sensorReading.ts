@@ -4,8 +4,7 @@ import { PlatformConfig } from 'homebridge';
 /**
  * https://community.purpleair.com/t/sd-card-file-headers/279
  * https://community.purpleair.com/t/the-purpleair-utility/673
- * CF1 indicates measurements suitable for indoor or controlled environments.
- * ATM indicates measurements suitable for outdoor or atmospheric conditions.
+ * https://community.purpleair.com/t/what-is-the-difference-between-cf-1-atm-and-alt/6442
  */
 export class SensorReading {
   public readonly readAt: number;
@@ -57,6 +56,14 @@ export class SensorReading {
       value = (this.data.pm2_5_atm + this.data.pm2_5_atm_b) / 2;
     }
 
+    if (this.isIndoor()) {
+      value = this.data.pm2_5_cf_1;
+
+      if ('pm2_5_cf_1_b' in this.data) {
+        value = (this.data.pm2_5_cf_1 + this.data.pm2_5_cf_1_b) / 2;
+      }
+    }
+
     return this.round(value);
   }
 
@@ -65,6 +72,14 @@ export class SensorReading {
 
     if ('pm10_0_atm_b' in this.data) {
       value = (this.data.pm10_0_atm + this.data.pm10_0_atm_b) / 2;
+    }
+
+    if (this.isIndoor()) {
+      value = this.data.pm10_0_cf_1;
+
+      if ('pm10_0_cf_1_b' in this.data) {
+        value = (this.data.pm10_0_cf_1 + this.data.pm10_0_cf_1_b) / 2;
+      }
     }
 
     return this.round(value);
@@ -116,11 +131,17 @@ export class SensorReading {
     ].join(', ');
   }
 
+  isIndoor(): boolean {
+    return this.data.place === 'inside';
+  }
+
   isNaN(): boolean {
     return [
       'pm2.5_aqi',
       'pm2_5_atm',
+      'pm2_5_cf_1',
       'pm10_0_atm',
+      'pm10_0_cf_1',
       'current_temp_f',
       'current_humidity',
     ].some(
@@ -129,8 +150,7 @@ export class SensorReading {
   }
 
   hasVOC(): boolean {
-    return ('voc' in this.data)
-      && ! isNaN(this.data.voc);
+    return ('voc' in this.data) && ! isNaN(this.data.voc);
   }
 
   secondsSinceRead(): number {

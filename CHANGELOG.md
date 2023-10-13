@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [unreleased]
 ### Changed
+- Use CF1 readings for indoor sensors
 - Adjusted temperature by -8°F and humidity by +4% to better reflect ambient temperature
 
 ## [1.0.7] - 2023-09-02
