@@ -51,3 +51,10 @@ You may configure this plugin using Homebridge UI, or by editing your `config.js
 | `sensors`             | `array `  | `[]`     | An array containing the PurpleAir sensors. |
 | `sensors[].ip`        | `string`  |          | The IP address of the sensor on the local network. |
 | `sensors[].name`      | `string`  |          | _(Optional)_ The name of the sensor. Useful to distinguish multiple sensors. |
+
+
+## Conversions
+
+### US EPA
+
+Courtesy of the United States Environmental Protection Agency Office of Research and Development, correction equation from their [US wide study](https://cfpub.epa.gov/si/si_public_record_report.cfm?dirEntryId=353088&Lab=CEMM) (updated version from October 22 2021) as applied on the AirNow Fire and Smoke Map.
