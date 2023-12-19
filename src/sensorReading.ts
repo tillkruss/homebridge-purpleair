@@ -5,6 +5,8 @@ import { PlatformConfig } from 'homebridge';
  * https://community.purpleair.com/t/sd-card-file-headers/279
  * https://community.purpleair.com/t/the-purpleair-utility/673
  * https://community.purpleair.com/t/what-is-the-difference-between-cf-1-atm-and-alt/6442
+ *
+ * https://community.purpleair.com/t/local-json-documentation/6917
  */
 export class SensorReading {
   public readonly readAt: number;
