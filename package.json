@@ -16,8 +16,8 @@
   },
   "engines": {
     "node": ">=16.0",
-    "homebridge": "^1.6.0"
-  },
+    "homebridge": "^1.6.0 || ^2.0.0-beta.0"
+  },  
   "main": "dist/index.js",
   "scripts": {
     "lint": "eslint src/**.ts --max-warnings=0",
