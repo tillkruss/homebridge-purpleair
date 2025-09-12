@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8] - 2025-9-2
+### Changed
+- Limit PM10/2.5 report value to `1000`
+- Mark as compatible with Homebridge 2.0
+
 ## [1.0.8] - 2023-10-13
 ### Changed
 - Use `CF=1` readings for indoor sensors
