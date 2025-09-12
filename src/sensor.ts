@@ -227,7 +227,7 @@ export class Sensor {
       return this.sensorReading!.aqi;
     }
 
-    return this.sensorReading!.pm2_5;
+    return Math.max(this.sensorReading!.pm2_5, 1000);
   }
 
   getPM10Density() {
@@ -237,7 +237,7 @@ export class Sensor {
       return 0;
     }
 
-    return this.sensorReading!.pm10;
+    return Math.max(this.sensorReading!.pm10, 1000);
   }
 
   getVOCDensity() {
