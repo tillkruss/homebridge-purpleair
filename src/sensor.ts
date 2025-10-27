@@ -12,7 +12,7 @@ export class Sensor {
   private readonly startedAt: number;
 
   static readonly updateInterval = 60;
-  static readonly requestTimeout = 15;
+  static readonly requestTimeout = 25;
 
   constructor(
     private readonly platform: PurpleAirPlatform,
