@@ -1,10 +1,10 @@
-const js = require('@eslint/js');
-const tseslint = require('@typescript-eslint/eslint-plugin');
-const tsparser = require('@typescript-eslint/parser');
-const stylistic = require('@stylistic/eslint-plugin');
-const globals = require('globals');
+import js from '@eslint/js';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import tsparser from '@typescript-eslint/parser';
+import stylistic from '@stylistic/eslint-plugin';
+import globals from 'globals';
 
-module.exports = [
+export default [
   {
     ignores: ['dist/**'],
   },
