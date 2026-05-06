@@ -99,15 +99,14 @@ export class SensorReading {
 
   /**
    * Humidity adjusted by +4%.
-   * Constrained to the valid range of 0-100.
    *
    * @see https://community.purpleair.com/t/purpleair-sensors-functional-overview/150
    */
   get humidity(): number {
     const correction = 4;
-    const adjustedHumidity = this.data.current_humidity + correction;
+    const humidity = this.data.current_humidity + correction;
 
-    return Math.max(0, Math.min(100, adjustedHumidity));
+    return Math.max(0, Math.min(100, humidity));
   }
 
   /**
