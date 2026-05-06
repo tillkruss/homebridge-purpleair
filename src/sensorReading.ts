@@ -104,8 +104,9 @@ export class SensorReading {
    */
   get humidity(): number {
     const correction = 4;
+    const humidity = this.data.current_humidity + correction;
 
-    return this.data.current_humidity + correction;
+    return Math.max(0, Math.min(100, humidity));
   }
 
   /**
