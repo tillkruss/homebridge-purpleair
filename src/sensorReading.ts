@@ -119,7 +119,7 @@ export class SensorReading {
     const fahrenheit = this.data.current_temp_f + correction;
     const celsius = (fahrenheit - 32) * 5/9;
 
-    return this.round(celsius);
+    return Math.max(-270, Math.min(100, this.round(celsius)));
   }
 
   get aqi(): number {
