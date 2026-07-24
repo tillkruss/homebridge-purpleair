@@ -4,8 +4,17 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.0.10] - 2026-07-24
 ### Fixed
+- Correctly cap PM2.5/PM10 report values at `1000`
 - Limit humidity value to `0-100`
+- Clamp temperature reading to `-270 – 100°C`
+
+### Changed
+- Limit VOC report value to `1000`
+- Increase sensor request timeout from `15s` to `25s`
+- Update dependencies
 
 ## [1.0.9] - 2025-09-02
 ### Changed
@@ -71,7 +80,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Initial release
 
-[Unreleased]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.9...HEAD
+[Unreleased]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.10...HEAD
+[1.0.10]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.9...v1.0.10
 [1.0.9]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.7...v1.0.8
 [1.0.7]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.6...v1.0.7
