@@ -25,16 +25,14 @@ export class PurpleAirPlatform implements DynamicPlatformPlugin {
   }
 
   setUpSensors() {
-
     if (! this.config.sensors?.length) {
       this.log.warn('No sensors configured');
-
-      return;
     }
 
     const ips: string[] = [];
+    const configuredUuids = new Set<string>();
 
-    for (const sensor of this.config.sensors) {
+    for (const sensor of this.config.sensors ?? []) {
       if (ips.includes(sensor.ip)) {
         this.log.error('Ignoring duplicate sensor:', sensor.ip);
 
@@ -43,6 +41,8 @@ export class PurpleAirPlatform implements DynamicPlatformPlugin {
 
       const uuid = this.api.hap.uuid.generate(sensor.ip);
       const displayName = sensor.name || 'PurpleAir';
+
+      configuredUuids.add(uuid);
 
       const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
 
@@ -68,5 +68,21 @@ export class PurpleAirPlatform implements DynamicPlatformPlugin {
 
       ips.push(sensor.ip);
     }
+
+    this.removeStaleSensors(configuredUuids);
+  }
+
+  removeStaleSensors(configuredUuids: Set<string>) {
+    const staleAccessories = this.accessories.filter(accessory => ! configuredUuids.has(accessory.UUID));
+
+    if (! staleAccessories.length) {
+      return;
+    }
+
+    for (const accessory of staleAccessories) {
+      this.log.info('Removing sensor:', accessory.displayName);
+    }
+
+    this.api.unregisterPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, staleAccessories);
   }
 }

@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Remove accessories when their sensor is deleted from the config
 
 ## [1.1.0] - 2026-07-24
 ### Fixed
