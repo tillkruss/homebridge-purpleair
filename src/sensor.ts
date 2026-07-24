@@ -14,6 +14,14 @@ export class Sensor {
   static readonly updateInterval = 60;
   static readonly requestTimeout = 25;
 
+  get updateInterval(): number {
+    const configured = this.platform.config.updateInterval;
+
+    return typeof configured === 'number' && configured > 0
+      ? configured
+      : Sensor.updateInterval;
+  }
+
   constructor(
     private readonly platform: PurpleAirPlatform,
     private readonly accessory: PlatformAccessory,
@@ -42,7 +50,7 @@ export class Sensor {
 
     setInterval(
       () => this.readSensor(),
-      Sensor.updateInterval * 1000,
+      this.updateInterval * 1000,
     );
   }
 
@@ -147,7 +155,7 @@ export class Sensor {
 
     const secondsSinceRead = this.sensorReading!.secondsSinceRead();
 
-    if (secondsSinceRead > (Sensor.updateInterval * 3)) {
+    if (secondsSinceRead > (this.updateInterval * 3)) {
       this.platform.log.debug(`Sensor [${this.ip}] has not responded in ${Math.round(secondsSinceRead / 60)} minutes`);
 
       return true;

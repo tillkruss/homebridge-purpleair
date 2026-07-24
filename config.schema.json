@@ -21,6 +21,13 @@
         "description": "HomeKit doesn't expose the air quality index (AQI). If enabled, the plugin will report the AQI in the \"PM2.5 Density (µg/m³)\" field.",
         "type": "boolean"
       },
+      "updateInterval": {
+        "title": "Update Interval",
+        "description": "How often (in seconds) each sensor is polled for new readings. Defaults to 60.",
+        "type": "integer",
+        "default": 60,
+        "minimum": 10
+      },
       "sensors": {
         "type": "array",
         "items": {
