@@ -6,15 +6,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 
 ## [1.0.10] - 2026-07-24
-### Fixed
-- Correctly cap PM2.5/PM10 report values at `1000`
-- Limit humidity value to `0-100`
-- Clamp temperature reading to `-270 – 100°C`
-
 ### Changed
 - Limit VOC report value to `1000`
 - Increase sensor request timeout from `15s` to `25s`
 - Update dependencies
+
+### Fixed
+- Correctly cap PM2.5/PM10 report values at `1000`
+- Limit humidity value to `0-100`
+- Clamp temperature reading to `-270 – 100°C`
 
 ## [1.0.9] - 2025-09-02
 ### Changed
