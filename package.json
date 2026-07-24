@@ -1,7 +1,7 @@
 {
   "displayName": "PurpleAir",
   "name": "homebridge-purpleair",
-  "version": "1.0.10",
+  "version": "1.1.0",
   "description": "A Homebridge plugin to connect PurpleAir sensors.",
   "license": "Apache-2.0",
   "keywords": [

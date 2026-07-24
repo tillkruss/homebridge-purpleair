@@ -224,7 +224,7 @@ export class Sensor {
     }
 
     if (this.platform.config.aqiInsteadOfDensity) {
-      return this.sensorReading!.aqi;
+      return Math.min(this.sensorReading!.aqi, 1000);
     }
 
     return Math.min(this.sensorReading!.pm2_5, 1000);

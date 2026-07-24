@@ -5,6 +5,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-07-24
+### Fixed
+- Clamp AQI report value to `1000` when `aqiInsteadOfDensity` is enabled
+
 ## [1.0.10] - 2026-07-24
 ### Changed
 - Increase sensor request timeout from `15s` to `25s`
@@ -79,7 +83,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Added
 - Initial release
 
-[Unreleased]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.10...HEAD
+[Unreleased]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.10...v1.1.0
 [1.0.10]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.9...v1.0.10
 [1.0.9]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.8...v1.0.9
 [1.0.8]: https://github.com/tillkruss/homebridge-purpleair/compare/v1.0.7...v1.0.8

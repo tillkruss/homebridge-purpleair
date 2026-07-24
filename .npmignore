@@ -3,6 +3,9 @@ src
 
 # ------------- Defaults ------------- #
 
+# claude code
+.claude
+
 # gitHub actions
 .github
 
