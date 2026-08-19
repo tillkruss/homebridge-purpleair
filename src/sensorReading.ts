@@ -2,11 +2,11 @@
 import { PlatformConfig } from 'homebridge';
 
 /**
- * https://community.purpleair.com/t/sd-card-file-headers/279
+ * https://community.purpleair.com/t/understanding-sd-card-data-columns/279
  * https://community.purpleair.com/t/the-purpleair-utility/673
  * https://community.purpleair.com/t/what-is-the-difference-between-cf-1-atm-and-alt/6442
  *
- * https://community.purpleair.com/t/local-json-documentation/6917
+ * https://community.purpleair.com/t/sensor-json-documentation/6917
  */
 export class SensorReading {
   public readonly readAt: number;
@@ -198,9 +198,12 @@ export class SensorReading {
 
   /**
    * An updated 5 step algorithm for correcting sensor data was developed by the EPA based on new wildfire data.
-   * This updated algorithm is the one currently used by PurpleAir. The 5 equations are found on Slide 26 at:
-   * https://cfpub.epa.gov/si/si_public_record_report.cfm?dirEntryId=353088&Lab=CEMM
+   * This updated algorithm is the one currently used by PurpleAir. The 5 equations are found on Slide 26 of
+   * "Sensor data cleaning and correction: Application on the AirNow Fire and Smoke Map" (Barkjohn et al.,
+   * American Association for Aerosol Research Conference, October 18-22 2021). EPA's Science Inventory no
+   * longer serves that record, so the link below points at an archived copy of the slides.
    *
+   * @see https://web.archive.org/web/20241210090849/https://cfpub.epa.gov/si/si_public_file_download.cfm?p_download_id=544231&Lab=CEMM
    * @see https://github.com/tidbyt/community/pull/1727
    */
   epaATM(): number {

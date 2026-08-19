@@ -57,4 +57,4 @@ You may configure this plugin using Homebridge UI, or by editing your `config.js
 
 ### US EPA
 
-Courtesy of the United States Environmental Protection Agency Office of Research and Development, correction equation from their [US wide study](https://cfpub.epa.gov/si/si_public_record_report.cfm?dirEntryId=353088&Lab=CEMM) (updated version from October 22 2021) as applied on the AirNow Fire and Smoke Map.
+Courtesy of the United States Environmental Protection Agency Office of Research and Development, correction equation from their [US wide study](https://web.archive.org/web/20241024054934/https://cfpub.epa.gov/si/si_public_record_report.cfm?dirEntryId=353088&Lab=CEMM) (updated version from October 22 2021) as applied on the AirNow Fire and Smoke Map.
