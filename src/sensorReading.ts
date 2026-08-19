@@ -230,37 +230,45 @@ export class SensorReading {
   }
 
   /**
-   * @see https://forum.airnowtech.org/t/the-aqi-equation/169
+   * Converts a PM2.5 concentration (µg/m³) into an AQI value.
+   *
+   * Uses the breakpoints that took effect on May 6, 2024, which lowered the ceiling of the
+   * "Good" category from `12.0` to `9.0` µg/m³ and rescaled the "Unhealthy", "Very Unhealthy"
+   * and "Hazardous" categories.
+   *
+   * Concentrations above `325.4` µg/m³ are "beyond the AQI" and extrapolated from the
+   * highest breakpoint, so that worsening air quality keeps increasing the reported value.
+   *
+   * @see https://www.ecfr.gov/current/title-40/part-58/appendix-Appendix%20G%20to%20Part%2058
+   * @see https://document.airnow.gov/technical-assistance-document-for-the-reporting-of-daily-air-quailty.pdf
    */
   pmToAQI(pm: number): number {
-    let aqi: number;
+    // `[concentrationLow, concentrationHigh, indexLow, indexHigh]`
+    const breakpoints = [
+      [0.0, 9.0, 0, 50],
+      [9.1, 35.4, 51, 100],
+      [35.5, 55.4, 101, 150],
+      [55.5, 125.4, 151, 200],
+      [125.5, 225.4, 201, 300],
+      [225.5, 325.4, 301, 500],
+    ];
 
-    const calcAQI = function (Cp: number, Ih: number, Il: number, BPh: number, BPl: number): number {
-      const a = Ih - Il;
-      const b = BPh - BPl;
-      const c = Cp - BPl;
-
-      return Math.round((a / b) * c + Il);
-    };
-
-    if (pm > 350.5) {
-      aqi = calcAQI(pm, 500, 401, 500, 350.5);
-    } else if (pm > 250.5) {
-      aqi = calcAQI(pm, 400, 301, 350.4, 250.5);
-    } else if (pm > 150.5) {
-      aqi = calcAQI(pm, 300, 201, 250.4, 150.5);
-    } else if (pm > 55.5) {
-      aqi = calcAQI(pm, 200, 151, 150.4, 55.5);
-    } else if (pm > 35.5) {
-      aqi = calcAQI(pm, 150, 101, 55.4, 35.5);
-    } else if (pm > 12.1) {
-      aqi = calcAQI(pm, 100, 51, 35.4, 12.1);
-    } else if (pm >= 0) {
-      aqi = calcAQI(pm, 50, 0, 12, 0);
-    } else {
-      aqi = 0;
+    if (isNaN(pm) || pm <= 0) {
+      return 0;
     }
 
-    return aqi;
+    // the AQI equation expects the concentration truncated to `0.1` µg/m³
+    const concentration = Math.floor(pm * 10) / 10;
+
+    const [
+      concentrationLow,
+      concentrationHigh,
+      indexLow,
+      indexHigh,
+    ] = breakpoints.find(([, high]) => concentration <= high) ?? breakpoints[breakpoints.length - 1];
+
+    const slope = (indexHigh - indexLow) / (concentrationHigh - concentrationLow);
+
+    return Math.round(slope * (concentration - concentrationLow) + indexLow);
   }
 }
