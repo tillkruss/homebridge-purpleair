@@ -8,6 +8,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Added configurable `updateInterval` setting
 - Remove accessories when their sensor is deleted from the config
 
+### Fixed
+- Use the US EPA AQI breakpoints that took effect on May 6, 2024
+- Truncate the PM2.5 concentration to `0.1` µg/m³ before converting it to an AQI
+
 ## [1.1.0] - 2026-07-24
 ### Fixed
 - Clamp AQI report value to `1000` when `aqiInsteadOfDensity` is enabled
