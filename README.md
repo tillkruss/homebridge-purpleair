@@ -48,6 +48,7 @@ You may configure this plugin using Homebridge UI, or by editing your `config.js
 | --------------------- | --------- | -------- | ----------- |
 | `conversion`          | `string`  | `US_EPA` | The data correction used to determine the air quality index (AQI). |
 | `aqiInsteadOfDensity` | `boolean` | `false`  | _(Optional)_ HomeKit doesn't expose the air quality index (AQI). If enabled, the plugin will report the AQI in the "PM2.5 Density (µg/m³)" field. |
+| `updateInterval`      | `integer` | `60`     | _(Optional)_ How often (in seconds) each sensor is polled for new readings. Minimum `10`. |
 | `sensors`             | `array `  | `[]`     | An array containing the PurpleAir sensors. |
 | `sensors[].ip`        | `string`  |          | The IP address of the sensor on the local network. |
 | `sensors[].name`      | `string`  |          | _(Optional)_ The name of the sensor. Useful to distinguish multiple sensors. |
